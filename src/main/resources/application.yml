@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: ControlReq
+
+
+
+  data:
+    mongodb:
+      uri: mongodb://admin:admin123@localhost:27017/ControlReq?authSource=admin
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: https://tu-dominio-oauth.com/realms/mi-reino
+app:
+  uploads:
+    path: C:/Users/cristhianc/Documents/uploads
+    base-url: http://localhost:8080/uploads
+
+
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: alpha
+    tagsSorter: alpha
+    display-swagger-default-url: false
+
+
