@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import java.net.http.HttpHeaders;
+import java.util.Arrays;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,9 @@ import org.springframework.security.web.server.authentication.AnonymousAuthentic
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.demo.JWT.JWTAuthenticationManager;
 
@@ -62,6 +66,7 @@ public class SecurityConfig {
 	        return http
 	                .csrf(ServerHttpSecurity.CsrfSpec::disable)
 	                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+	                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configuración CORS
 	                .authorizeExchange(exchange -> exchange
                           .pathMatchers(
                  "/signup"
@@ -78,4 +83,17 @@ public class SecurityConfig {
 	                
 	                
 	    }
+	
+	@Bean
+    public org.springframework.web.cors.reactive.CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://tu-frontend.com")); // Define tus orígenes permitidos
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // Métodos permitidos
+        configuration.setAllowedHeaders(Arrays.asList("*")); // Permite cabeceras
+        configuration.setAllowCredentials(true); // Permite credenciales
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Aplica a todas las rutas
+        return corsConfigurationSource();
+    }
 }
