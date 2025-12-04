@@ -11,8 +11,8 @@ import org.springframework.security.web.server.authentication.AuthenticationWebF
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import com.example.demo.JWT.JWTAuthenticationManager;
 
@@ -66,7 +66,8 @@ public class SecurityConfig {
 	        return http
 	                .csrf(ServerHttpSecurity.CsrfSpec::disable)
 	                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-	                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configuración CORS
+	                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Habilita y configura CORS
+
 	                .authorizeExchange(exchange -> exchange
                           .pathMatchers(
                  "/signup"
@@ -85,7 +86,7 @@ public class SecurityConfig {
 	    }
 	
 	@Bean
-    public org.springframework.web.cors.reactive.CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://tu-frontend.com")); // Define tus orígenes permitidos
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")); // Métodos permitidos
@@ -94,6 +95,6 @@ public class SecurityConfig {
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // Aplica a todas las rutas
-        return corsConfigurationSource();
+        return source;
     }
 }
