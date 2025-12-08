@@ -56,7 +56,7 @@ public class RequisicionesService implements IRequisiciones {
 					req.setEstatus(dto.getEstatusDto());
 					req.setIdusuario(dto.getIdUsuario());
 					req.setIdArticulos(ids);
-					//req.setFechaCreacion(new Date());
+					req.setFechaCreacion(new Date());
 
 					// 4. Guardar requisición
 					System.out.println("service" + req);
@@ -84,6 +84,7 @@ public class RequisicionesService implements IRequisiciones {
 	        dto.setDireccionDto(r.getDireccion());
 	        dto.setAreaDto(r.getArea());
 	        dto.setEstatusDto(r.getEstatus());
+	        dto.setIdUsuario(r.getIdusuario());
 	        dto.setArticulosDto(articulos); // ya son entidades completas
 	        dto.setFechaCreacion(r.getFechaCreacion().toString());
 	        
