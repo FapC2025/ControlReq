@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import com.example.demo.DTO.RequisicionDto;
 import com.example.demo.entity.Documento;
 import com.example.demo.entity.Requisiciones;
@@ -20,7 +20,12 @@ import com.example.demo.service.RequisicionesService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/api")
@@ -34,13 +39,21 @@ private final DocumentoService documentoService;
 		this.documentoService = documentoService;
 	}
 	
-	@PostMapping("/subirDocumento"
-				
-			)
+	@PostMapping("/subirDocumento")
 	@Operation(summary="Subir documento")
 	public Mono<Documento> crearRequisicion(@AuthenticationPrincipal @RequestPart("file") FilePart file, @RequestHeader("idUsuario") String idUsuario  ,@RequestPart("idRequisicion") String idRequisicion ){
 		System.out.println("Datos de controller" + file);
 	
 		return documentoService.uploadFile(file,idUsuario,idRequisicion);
+	}
+	@GetMapping("/listarDocumento/{idRequisicion}")
+	@Operation(summary="Operacion responsable de listar todos los documentos relacionados a la requisicion")
+	public Flux<Documento> listarDocumentos(@PathVariable String idRequisicion) {
+		return documentoService.listarDocumentos(idRequisicion);
+	}
+	@GetMapping("/verDocumento/{fileName}")
+	@Operation(summary="Operacion responsable de descargar los documentos relacionados a la requisicion")
+	public Mono<Void> extraerDocumento(@PathVariable String fileName, ServerHttpResponse response){
+		return documentoService.extraerDocuemntos(fileName, response);
 	}
 }

@@ -19,11 +19,11 @@ public class Documento {
 	private String fileName;
 	private Date fechaCreacion;
 	
-	  public Documento(String fileName, String url, String idRequisicion2, String idUsuario2) {
+	  public Documento(String fileName, String url, String idRequisicion, String idUsuario) {
 	        this.fileName = fileName;
 	        this.url = url;
-	        this.idUsuario = idUsuario2;
-	        this.idRequisicion = idRequisicion2;
+	        this.idUsuario = idUsuario;
+	        this.idRequisicion = idRequisicion;
 	
 	        this.fechaCreacion = new  Date();
 	    }
