@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "Comentarios", description = "Operaciones relacionadas a los Comentarios")
+@Tag(name = "Documentos", description = "Operaciones relacionadas a los Comentarios")
 public class DocumentoController {
 
 private final DocumentoService documentoService;

@@ -127,4 +127,18 @@ public class RequisicionesService implements IRequisiciones {
 				});
 	}
 
+	@Override
+	public Mono<Requisiciones> actualizarRequisicionCompleta(String id, Requisiciones req) {
+		// TODO Auto-generated method stub
+	return requisicionesrepository.findById(id) // Busca el documento existente
+	            .flatMap(requis -> {
+	            	requis.setFolio(req.getFolio());
+	            	requis.setSolicitante(req.getSolicitante());
+	            	requis.setPrioridad(req.getPrioridad());
+	            	requis.setDireccion(req.getDireccion());
+	            	requis.setArea(req.getArea());
+	                return requisicionesrepository.save(requis);
+	            });
+	}
+
 }
