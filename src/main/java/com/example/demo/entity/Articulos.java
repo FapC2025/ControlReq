@@ -19,7 +19,7 @@ public class Articulos {
 	private String unidad;
 	private String descripcion;
 	private String marca;
-	private String estatus;
+	private Boolean estatus;
 	@CreatedDate
 	private LocalDateTime  fechaCreacion;
 }

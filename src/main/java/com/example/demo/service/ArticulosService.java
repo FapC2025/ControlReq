@@ -40,7 +40,7 @@ public class ArticulosService implements IArticulos {
 	}
 
 	@Override
-	public Mono<Articulos> actualizarEstado(String id, String estatus) {
+	public Mono<Articulos> actualizarEstado(String id, Boolean estatus) {
 		// TODO Auto-generated method stub
 		return articulosRepository.findById(id)
 				.flatMap(articulos ->{

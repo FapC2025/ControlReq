@@ -10,5 +10,5 @@ public interface IArticulos {
 	Mono<Articulos> registrarArticulo(Articulos articulos);
 	Flux<Articulos> listaArticulos();
 	Mono<Void> eliminarArticulo(String id);
-	Mono<Articulos> actualizarEstado(String id, String estatus);
+	Mono<Articulos> actualizarEstado(String id, Boolean estatus);
 }

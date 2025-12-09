@@ -47,7 +47,7 @@ public class ArticulosController {
 	}
 	@PatchMapping("/actualizarArticulo/{id}")
 	@Operation(summary="Operacion referente a la actualización del articulo. ")
-	public Mono<Articulos> actualizarArticulo(@PathVariable String id, @RequestBody String estatus){
+	public Mono<Articulos> actualizarArticulo(@PathVariable String id, @RequestBody Boolean estatus){
 		return articulosService.actualizarEstado(id, estatus);
 	}
 }
