@@ -30,13 +30,23 @@ public class ArticulosService implements IArticulos {
 	@Override
 	public Flux<Articulos> listaArticulos() {
 		// TODO Auto-generated method stub
-		return null;
+		return articulosRepository.findAll();
 	}
 
 	@Override
 	public Mono<Void> eliminarArticulo(String id) {
 		// TODO Auto-generated method stub
 		return articulosRepository.deleteById(id);
+	}
+
+	@Override
+	public Mono<Articulos> actualizarEstado(String id, String estatus) {
+		// TODO Auto-generated method stub
+		return articulosRepository.findById(id)
+				.flatMap(articulos ->{
+					articulos.setEstatus(estatus);
+					return articulosRepository.save(articulos);
+				});
 	}
 
 
