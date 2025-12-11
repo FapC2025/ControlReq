@@ -18,6 +18,6 @@ public class Usuarios {
 	private String email;
 	private String password;
 	private String Departamento;
-	@CreatedDate
-	private Date fechaCreacion;
+	
+	private String fechaCreacion;
 }

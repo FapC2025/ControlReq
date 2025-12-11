@@ -17,6 +17,6 @@ public class Comentarios {
 	private String idUsuario;
 	private String idRequisicion;	
 	private String comentario;
-	@CreatedDate
-	private Date fechaCreacion;
+	
+	private String fechaCreacion;
 }

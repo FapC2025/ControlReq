@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +38,7 @@ public class UsuariosService implements IUsuarios {
 	public Mono<Usuarios> crearUsuario(Usuarios usuarios) {
 		// TODO Auto-generated method stub
 
-		
+		usuarios.setFechaCreacion(LocalDate.now().toString());
 		usuarios.setPassword(passwordEncoder.encode(usuarios.getPassword()));
 		return usuarioRepository.save(usuarios);
 	}

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -35,6 +36,7 @@ public class ComentariosService implements IComentarios  {
 	@Override
 	public Mono<Comentarios> agregarComentario( Comentarios comentarios) {
 		// TODO Auto-generated method stub
+		comentarios.setFechaCreacion(LocalDate.now().toString());
 		return comentariosRepository.save(comentarios);
 	}
 
@@ -87,7 +89,7 @@ public class ComentariosService implements IComentarios  {
 	    dto.setUsuario(user.getNombre());
 	    dto.setIdRequisicion(comentario.getIdRequisicion());
 	    dto.setComentario(comentario.getComentario());
-	    //dto.setFechaCreacion(comentario.getFechaCreacion().toString());
+	    dto.setFechaCreacion(comentario.getFechaCreacion());
 
 	    return dto;
 	}
