@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.DTO.ComentarioDTO;
 import com.example.demo.entity.Comentarios;
 import com.example.demo.repository.IComentariosRepository;
 import com.example.demo.service.ComentariosService;
@@ -50,5 +51,10 @@ public class ComentariosController {
 	@Operation(summary="Obtener todos los comantarios para el usuario y sus requisiciones")
 	public Flux<Comentarios> listarComentarios(@PathVariable String idUsuario,@PathVariable String idRequisicion){
 		return comentariosService.obtenerComentarios(idUsuario, idRequisicion);
+	}
+	@GetMapping("/comentarios/requisicion/{idRequisicion}")
+	@Operation(summary="Obtener todos los comentarios con nombre de usuario")
+	public Flux<ComentarioDTO> buscarComentario(@PathVariable String idRequisicion){
+		return comentariosService.buscarComentarios( idRequisicion);
 	}
 }

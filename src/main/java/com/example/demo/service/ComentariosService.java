@@ -1,11 +1,19 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.example.demo.DTO.ComentarioDTO;
+import com.example.demo.DTO.RequisicionDto;
+import com.example.demo.entity.Articulos;
 import com.example.demo.entity.Comentarios;
+import com.example.demo.entity.Requisiciones;
+import com.example.demo.entity.Usuarios;
 import com.example.demo.repository.IComentariosRepository;
+import com.example.demo.repository.IUsuariosRepository;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -13,11 +21,15 @@ import reactor.core.publisher.Mono;
 @Service
 public class ComentariosService implements IComentarios  {
 
+    private final UsuariosService usuariosService;
+
 
 	private final IComentariosRepository comentariosRepository;
-	
-	public ComentariosService (IComentariosRepository comentariosRepository) {
+	private final IUsuariosRepository usuarioRepository;
+	public ComentariosService (IComentariosRepository comentariosRepository,IUsuariosRepository usuarioRepository, UsuariosService usuariosService) {
 		this.comentariosRepository =comentariosRepository;
+		this.usuarioRepository = usuarioRepository;
+		this.usuariosService = usuariosService;
 	}
 
 	@Override
@@ -56,6 +68,30 @@ public class ComentariosService implements IComentarios  {
         }
 		return comentariosRepository.findByIdUsuarioAndIdRequisicion(idUsuario, idRequisicion);
 	}
+
+	@Override
+	public Flux<ComentarioDTO> buscarComentarios(String idRequisiciones) {
+
+	    return comentariosRepository.findByIdRequisicion(idRequisiciones)
+	        .flatMap(comentario ->
+	            usuarioRepository.findById(comentario.getIdUsuario())
+	                .map(usuario -> mapToDto(comentario, usuario))
+	        );
+	}
+
+	private ComentarioDTO mapToDto(Comentarios comentario, Usuarios user) {
+
+	    ComentarioDTO dto = new ComentarioDTO();
+	    dto.setId(comentario.getId());
+	    dto.setIdUsuario(comentario.getIdUsuario());
+	    dto.setUsuario(user.getNombre());
+	    dto.setIdRequisicion(comentario.getIdRequisicion());
+	    dto.setComentario(comentario.getComentario());
+	    //dto.setFechaCreacion(comentario.getFechaCreacion().toString());
+
+	    return dto;
+	}
+
 
 	
 }
