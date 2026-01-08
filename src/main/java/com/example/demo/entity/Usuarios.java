@@ -17,7 +17,8 @@ public class Usuarios {
 	private String nombre;
 	private String email;
 	private String password;
+	private String rol;
 	private String Departamento;
 	
-	private String fechaCreacion;
+	private Date fechaCreacion;
 }

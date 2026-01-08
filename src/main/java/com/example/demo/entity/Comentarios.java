@@ -18,5 +18,5 @@ public class Comentarios {
 	private String idRequisicion;	
 	private String comentario;
 	
-	private String fechaCreacion;
+	private Date fechaCreacion;
 }
