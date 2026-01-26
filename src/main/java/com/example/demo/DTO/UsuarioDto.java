@@ -14,6 +14,7 @@ public class UsuarioDto {
 	private String email;
 	private String password;
 	private String idUsuario;
+	private String rol;
 	private List<Comentarios> comentariosDto;
 	private String fechaCreacion;
 }

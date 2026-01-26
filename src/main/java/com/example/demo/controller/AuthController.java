@@ -43,7 +43,8 @@ public class AuthController {
 	                    Map<String, Object> claims = Map.of(
 	                        "id", user.getId(),
 	                        "nombre", user.getNombre(),
-	                        "departamento", user.getDepartamento()
+	                        "departamento", user.getDepartamento(),
+	                        "rol", user.getRol()
 	                    );
 	                    String token = jwtUtil.generateToken(user.getEmail(), claims);
 	                    return Mono.just(ResponseEntity.ok(new AuthResponse(token)));

@@ -77,7 +77,7 @@ public class SecurityConfig {
                           "/v3/api-docs/swagger-config", // 👈 importante en springdoc-openapi
                           "/webjars/**",
                           "/favicon.ico",
-                          "/api/crearUsuario",
+                          "/api/agregarUsuario",
                           "/api/login"// Otros endpoints públicos
                   ).permitAll()
                   .anyExchange().authenticated()).addFilterAt(filter, SecurityWebFiltersOrder.AUTHENTICATION).build();
